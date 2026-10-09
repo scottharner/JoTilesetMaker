@@ -1,0 +1,95 @@
+﻿<Window x:Class="JoTilesetMaker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JoTilesetMaker"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Tiles" FontSize="18"/>
+            <ListBox 
+                Grid.Row="1" 
+                Grid.RowSpan="3" 
+                Grid.ColumnSpan="2" 
+                x:Name="TilesListBox" 
+                Margin="0,10,0,0"
+                SelectionMode="Extended"/>
+            <Button Grid.Row="1" Grid.Column="2" Content="Add Tile(s)" Margin="10" Click="AddTileButton_Click"/>
+            <Button Grid.Row="2" Grid.Column="2" Content="Remove Tile(s)" Margin="10" Click="RemoveTileButton_Click"/>
+            <StackPanel Grid.Row="3" Grid.Column="2" Margin="10">
+                <Label Content="Tile Properties" FontSize="18"/>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <Label Content="Tile Width:"/>
+                    <Label x:Name="TileWidthLabel" Margin="10,0,0,0" Width="100" Content="N/A"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Tile Height:"/>
+                    <Label x:Name="TileHeightLabel" Margin="10,0,0,0" Width="100" Content="N/A"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Tileset File Path:" FontSize="18" Padding="5,0,0,0" VerticalContentAlignment="Top" Grid.Column="0"/>
+            <TextBlock x:Name="TilesetFilePathTextBlock" TextWrapping="Wrap"  FontSize="18" Margin="10,0,0,0" Width="400" Text="N/A" Grid.Column="1"/>
+            <Button Content="Set Tileset File Path" Margin="10,0,10,10" Click="SetTilesetFilePathButton_Click" Grid.Column="2"/>
+        </Grid>
+        <Grid Grid.Row="2" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Tileset Config" FontSize="18"/>
+            <TextBox 
+                Grid.Row="1" 
+                Grid.RowSpan="2" 
+                Grid.ColumnSpan="2" 
+                x:Name="TilesetConfigTextBox" 
+                TextWrapping="Wrap"
+                AcceptsReturn="True"
+                IsReadOnly="True"
+                Text="N/A"
+                Padding="5"
+                Margin="0,10,0,0"/>
+            <Button Grid.Row="1" Grid.Column="2" Content="Copy Config" Margin="10" Click="CopyConfigButton_Click"/>
+        </Grid>
+        <Grid Grid.Row="3" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Build Tileset" Margin="10" Click="BuildTilesetButton_Click"/>
+            <Button Grid.Column="2" Content="Reset Tileset" Margin="10" Click="ResetTilesetButton_Click"/>
+        </Grid>
+    </Grid>
+</Window>
