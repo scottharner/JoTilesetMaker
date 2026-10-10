@@ -1,5 +1,8 @@
 ﻿using Microsoft.Win32;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Tga;
+using SixLabors.ImageSharp.PixelFormats;
+using System.IO;
 using System.Windows;
 
 namespace JoTilesetMaker
@@ -119,11 +122,37 @@ namespace JoTilesetMaker
         private void CopyConfigButton_Click(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(TilesetConfigTextBox.Text);
+
+            MessageBox.Show("Tileset configuration copied successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void BuildTilesetButton_Click(object sender, RoutedEventArgs e)
         {
+            if (File.Exists(TilesetFilePathTextBlock.Text))
+            {
+                var result = MessageBox.Show(
+                    "The file already exists. Are you sure you want to overwrite it with a new tileset file?",
+                    "Overwrite Tileset File",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question
+                );
 
+                if (result == MessageBoxResult.No)
+                {
+                    return; // User chose not to overwrite the file, so we exit the method early
+                }
+
+            }
+
+            using Image<Rgba32> image = new Image<Rgba32>(Convert.ToInt32(TileWidthLabel.Content) * TilesListBox.Items.Count, Convert.ToInt32(TileHeightLabel.Content), Color.Black.ToPixel<Rgba32>());
+            // todo - add tiles to image
+            image.Save(TilesetFilePathTextBlock.Text, new TgaEncoder
+            {
+                BitsPerPixel = TgaBitsPerPixel.Bit32,
+                Compression = TgaCompression.None
+            });
+
+            MessageBox.Show("Tileset built successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void ResetTilesetButton_Click(object sender, RoutedEventArgs e)
