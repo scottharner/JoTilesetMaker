@@ -2,6 +2,7 @@
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Tga;
 using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 using System.IO;
 using System.Windows;
 
@@ -144,9 +145,17 @@ namespace JoTilesetMaker
 
             }
 
-            using Image<Rgba32> image = new Image<Rgba32>(Convert.ToInt32(TileWidthLabel.Content) * TilesListBox.Items.Count, Convert.ToInt32(TileHeightLabel.Content), Color.Black.ToPixel<Rgba32>());
-            // todo - add tiles to image
-            image.Save(TilesetFilePathTextBlock.Text, new TgaEncoder
+            using Image<Rgba32> targetImage = new Image<Rgba32>(Convert.ToInt32(TileWidthLabel.Content) * TilesListBox.Items.Count, Convert.ToInt32(TileHeightLabel.Content), Color.Transparent.ToPixel<Rgba32>());
+            
+            int currentX = 0;
+            foreach (var filePath in TilesListBox.Items)
+            {
+                using var sourceImage = Image.Load<Rgba32>(filePath.ToString() ?? string.Empty);
+                targetImage.Mutate(ctx => ctx.DrawImage(sourceImage, new SixLabors.ImageSharp.Point(currentX, 0), 1f));
+                currentX += sourceImage.Width;
+            }
+
+            targetImage.Save(TilesetFilePathTextBlock.Text, new TgaEncoder
             {
                 BitsPerPixel = TgaBitsPerPixel.Bit32,
                 Compression = TgaCompression.None
