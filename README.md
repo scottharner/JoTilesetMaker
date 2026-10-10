@@ -14,7 +14,6 @@ may be compressed.
 - Check file name length
 - Implement button enabling
 - Use free ui theme
-- Add global error handler
 - Move strings to resources
 - Install/prerequisite story
 - Select image bits
