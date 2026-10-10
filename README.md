@@ -19,5 +19,4 @@ may be compressed.
 - Install/prerequisite story
 - Select image bits
 - Select background color
-- Order images
 - Pre-populate file path if already selected

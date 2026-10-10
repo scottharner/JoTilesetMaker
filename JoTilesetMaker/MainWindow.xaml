@@ -24,6 +24,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Tiles" FontSize="18"/>
             <ListBox 
@@ -46,6 +47,15 @@
                     <Label x:Name="TileHeightLabel" Margin="10,0,0,0" Width="100" Content="N/A"/>
                 </StackPanel>
             </StackPanel>
+            <Grid Grid.Row="4" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="Move Up" Margin="10" Click="MoveUpButton_Click"/>
+                <Button Grid.Column="2" Content="Move Down" Margin="10" Click="MoveDownButton_Click"/>
+            </Grid>
         </Grid>
         <Grid Grid.Row="1" Margin="10">
             <Grid.ColumnDefinitions>

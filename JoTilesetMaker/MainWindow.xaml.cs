@@ -194,5 +194,29 @@ namespace JoTilesetMaker
             // clear tileset config
             TilesetConfigTextBox.Text = LabelDefaultText;
         }
+
+        private void MoveUpButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (TilesListBox.SelectedItems.Count == 1 && TilesListBox.SelectedIndex > 0)
+            {
+                var selectedIndex = TilesListBox.SelectedIndex;
+                var selectedItem = TilesListBox.SelectedItem;
+                TilesListBox.Items.RemoveAt(selectedIndex);
+                TilesListBox.Items.Insert(selectedIndex - 1, selectedItem);
+                TilesListBox.SelectedIndex = selectedIndex - 1;
+            }
+        }
+
+        private void MoveDownButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (TilesListBox.SelectedItems.Count == 1 && TilesListBox.SelectedIndex < (TilesListBox.Items.Count - 1))
+            {
+                var selectedIndex = TilesListBox.SelectedIndex;
+                var selectedItem = TilesListBox.SelectedItem;
+                TilesListBox.Items.RemoveAt(selectedIndex);
+                TilesListBox.Items.Insert(selectedIndex + 1, selectedItem);
+                TilesListBox.SelectedIndex = selectedIndex + 1;
+            }
+        }
     }
 }
