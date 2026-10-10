@@ -42,8 +42,38 @@ namespace JoTilesetMaker
                     var tileSize = GetTileDimensions(firstFilePath);
                     TileWidthLabel.Content = tileSize.Width;
                     TileHeightLabel.Content = tileSize.Height;
+
+                    UpdateTilesetConfigText(tileSize);
                 }
             }
+        }
+
+        private void UpdateTilesetConfigText(SixLabors.ImageSharp.Size tileSize)
+        {
+            if (TilesListBox.Items.Count == 0)
+            {
+                TilesetConfigTextBox.Text = LabelDefaultText;
+                return;
+            }
+
+            var configString = "jo_tile game_tileset[] = {\n";
+
+            for (var i = 0; i < TilesListBox.Items.Count; i++)
+            {
+                var filePath = TilesListBox.Items[i].ToString();
+                if (i == TilesListBox.Items.Count - 1)
+                {
+                    configString += $"    {{ {i * tileSize.Width}, 0, {tileSize.Width}, {tileSize.Height} }}\n";
+                }
+                else
+                {
+                    configString += $"    {{ {i * tileSize.Width}, 0, {tileSize.Width}, {tileSize.Height} }},\n";
+                }
+            }
+
+            configString += "};\n";
+
+            TilesetConfigTextBox.Text = configString;
         }
 
         private SixLabors.ImageSharp.Size GetTileDimensions(string filePath)
@@ -66,6 +96,11 @@ namespace JoTilesetMaker
             {
                 TileWidthLabel.Content = LabelDefaultText;
                 TileHeightLabel.Content = LabelDefaultText;
+                UpdateTilesetConfigText(new SixLabors.ImageSharp.Size(0, 0));
+            }
+            else
+            { 
+                UpdateTilesetConfigText(GetTileDimensions(TilesListBox.Items[0].ToString() ?? string.Empty));
             }
         }
 
