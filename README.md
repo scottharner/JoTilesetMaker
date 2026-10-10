@@ -9,13 +9,13 @@ The tileset name must be 8 characters or fewer, excluding extension. None of the
 may be compressed.
 
 ## TODO
+- Select image bits
+- Select background color
 - Add errors list
 - Check size mismatch error
 - Check file name length
-- Implement button enabling
 - Use free ui theme
-- Move strings to resources
-- Install/prerequisite story
-- Select image bits
-- Select background color
 - Pre-populate file path if already selected
+- Move strings to resources
+- Implement button enabling
+- Install/prerequisite story
