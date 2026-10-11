@@ -9,7 +9,6 @@ The tileset name must be 8 characters or fewer, excluding extension. None of the
 may be compressed.
 
 ## TODO
-- Select background color
 - Add errors list
 - Check size mismatch error
 - Check file name length

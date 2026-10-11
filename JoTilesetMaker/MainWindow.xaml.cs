@@ -146,7 +146,11 @@ namespace JoTilesetMaker
 
             }
 
-            using Image<Rgba32> targetImage = new Image<Rgba32>(Convert.ToInt32(TileWidthLabel.Content) * TilesListBox.Items.Count, Convert.ToInt32(TileHeightLabel.Content), Color.Transparent.ToPixel<Rgba32>());
+            var backgroundColor = Color.Transparent.ToPixel<Rgba32>();
+            if (BackgroundColorPicker.SelectedColor != null)
+                backgroundColor = new Rgba32(BackgroundColorPicker.SelectedColor.Value.R, BackgroundColorPicker.SelectedColor.Value.G, BackgroundColorPicker.SelectedColor.Value.B, BackgroundColorPicker.SelectedColor.Value.A);
+
+            using Image<Rgba32> targetImage = new Image<Rgba32>(Convert.ToInt32(TileWidthLabel.Content) * TilesListBox.Items.Count, Convert.ToInt32(TileHeightLabel.Content), backgroundColor);
             
             int currentX = 0;
             foreach (var filePath in TilesListBox.Items)
