@@ -9,7 +9,6 @@ The tileset name must be 8 characters or fewer, excluding extension. None of the
 may be compressed.
 
 ## TODO
-- Select image bits
 - Select background color
 - Add errors list
 - Check size mismatch error
@@ -18,4 +17,5 @@ may be compressed.
 - Pre-populate file path if already selected
 - Move strings to resources
 - Implement button enabling
+- Test if all bit depths work
 - Install/prerequisite story

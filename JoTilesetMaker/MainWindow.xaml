@@ -8,10 +8,11 @@
         Title="MainWindow" Height="800" Width="800">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Margin="10">
             <Grid.ColumnDefinitions>
@@ -73,6 +74,31 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Label Content="Bit Depth:" FontSize="18"/>
+                <ComboBox Grid.Column="1" x:Name="BitDepthComboBox" Margin="10">
+                    <ComboBoxItem Content="8-bit" Tag="8"/>
+                    <ComboBoxItem Content="16-bit" Tag="16"/>
+                    <ComboBoxItem Content="24-bit" Tag="24"/>
+                    <ComboBoxItem Content="32-bit" Tag="32" IsSelected="True"/>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="3" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Build Tileset" Margin="10" Click="BuildTilesetButton_Click"/>
+            <Button Grid.Column="2" Content="Reset Tileset" Margin="10" Click="ResetTilesetButton_Click"/>
+        </Grid>
+        <Grid Grid.Row="4" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -91,15 +117,6 @@
                 Padding="5"
                 Margin="0,10,0,0"/>
             <Button Grid.Row="1" Grid.Column="2" Content="Copy Config" Margin="10" Click="CopyConfigButton_Click"/>
-        </Grid>
-        <Grid Grid.Row="3" Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="200"/>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Build Tileset" Margin="10" Click="BuildTilesetButton_Click"/>
-            <Button Grid.Column="2" Content="Reset Tileset" Margin="10" Click="ResetTilesetButton_Click"/>
         </Grid>
     </Grid>
 </Window>

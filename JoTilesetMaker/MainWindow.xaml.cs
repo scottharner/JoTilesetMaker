@@ -5,6 +5,7 @@ using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace JoTilesetMaker
 {
@@ -82,7 +83,7 @@ namespace JoTilesetMaker
 
         private SixLabors.ImageSharp.Size GetTileDimensions(string filePath)
         {
-            using (var image = Image.Load(filePath))
+            using (var image = SixLabors.ImageSharp.Image.Load(filePath))
             {
                 return new SixLabors.ImageSharp.Size(image.Width, image.Height);
             }
@@ -150,14 +151,24 @@ namespace JoTilesetMaker
             int currentX = 0;
             foreach (var filePath in TilesListBox.Items)
             {
-                using var sourceImage = Image.Load<Rgba32>(filePath.ToString() ?? string.Empty);
+                using var sourceImage = SixLabors.ImageSharp.Image.Load<Rgba32>(filePath.ToString() ?? string.Empty);
                 targetImage.Mutate(ctx => ctx.DrawImage(sourceImage, new SixLabors.ImageSharp.Point(currentX, 0), 1f));
                 currentX += sourceImage.Width;
             }
 
+            var bitsPerPixelTag = Convert.ToByte(((ComboBoxItem)BitDepthComboBox.SelectedItem).Tag);
+            TgaBitsPerPixel bitsPerPixel = bitsPerPixelTag switch
+            {
+                8 => TgaBitsPerPixel.Bit8,
+                16 => TgaBitsPerPixel.Bit16,
+                24 => TgaBitsPerPixel.Bit24,
+                32 => TgaBitsPerPixel.Bit32,
+                _ => throw new InvalidOperationException("Invalid bits per pixel value.")
+            };
+
             targetImage.Save(TilesetFilePathTextBlock.Text, new TgaEncoder
             {
-                BitsPerPixel = TgaBitsPerPixel.Bit32,
+                BitsPerPixel = bitsPerPixel,
                 Compression = TgaCompression.None
             });
 
