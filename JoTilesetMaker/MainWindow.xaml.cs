@@ -15,6 +15,7 @@ namespace JoTilesetMaker
     public partial class MainWindow : Window
     {
         const string LabelDefaultText = "N/A";
+        const int MaxFileNameLength = 8;
 
         public MainWindow()
         {
@@ -118,7 +119,21 @@ namespace JoTilesetMaker
             if (saveFileDialog.ShowDialog() == true)
             {
                 TilesetFilePathTextBlock.Text = saveFileDialog.FileName;
+                FileInfo saveFileInfo = new FileInfo(saveFileDialog.FileName);
+                var extensionlessFileName = saveFileInfo.Name.Replace(saveFileInfo.Extension, "");
+                var fileNameLengthError = $"The tileset file name exceeds {MaxFileNameLength} characters.";
+                if (extensionlessFileName.Length > MaxFileNameLength)
+                {
+                    if (!ErrorsListBox.Items.Contains(fileNameLengthError))
+                        ErrorsListBox.Items.Add(fileNameLengthError);
+                }
+                else
+                {
+                    if (ErrorsListBox.Items.Contains(fileNameLengthError))
+                        ErrorsListBox.Items.Remove(fileNameLengthError);
+                }
             }
+
         }
 
         private void CopyConfigButton_Click(object sender, RoutedEventArgs e)

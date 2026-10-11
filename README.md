@@ -9,9 +9,7 @@ The tileset name must be 8 characters or fewer, excluding extension. None of the
 may be compressed.
 
 ## TODO
-- Add errors list
 - Check size mismatch error
-- Check file name length
 - Use free ui theme
 - Pre-populate file path if already selected
 - Move strings to resources
