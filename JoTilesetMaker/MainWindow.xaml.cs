@@ -223,6 +223,9 @@ namespace JoTilesetMaker
 
             // clear tileset config
             TilesetConfigTextBox.Text = LabelDefaultText;
+
+            // clear errors
+            ErrorsListBox.Items.Clear();
         }
 
         private void MoveUpButton_Click(object sender, RoutedEventArgs e)

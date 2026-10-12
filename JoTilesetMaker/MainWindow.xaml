@@ -6,6 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:JoTilesetMaker"
         mc:Ignorable="d"
+        Style="{StaticResource MaterialDesignWindow}"
         Title="MainWindow" Height="800" Width="800">
     <Grid>
         <TabControl>
