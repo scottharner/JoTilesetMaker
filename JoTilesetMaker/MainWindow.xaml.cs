@@ -16,6 +16,7 @@ namespace JoTilesetMaker
     {
         const string LabelDefaultText = "N/A";
         const int MaxFileNameLength = 8;
+        const string DefaultBitDepth = "32"; // Default to 32 bits per pixel    
 
         public MainWindow()
         {
@@ -50,8 +51,34 @@ namespace JoTilesetMaker
                     TileHeightLabel.Content = tileSize.Height;
 
                     UpdateTilesetConfigText(tileSize);
+                    CheckTileSizeMismatch(tileSize.Width, tileSize.Height);
                 }
             }
+        }
+
+        private void CheckTileSizeMismatch(int width, int height)
+        {
+            bool mismatchFound = false;
+            foreach (var tile in TilesListBox.Items)
+            {
+                var tileSize = GetTileDimensions(tile.ToString() ?? string.Empty);
+                if (tileSize.Width != width || tileSize.Height != height)
+                {
+                    mismatchFound = true;
+                    break;
+                }
+            }
+
+            if (mismatchFound)
+            {
+                if (!ErrorsListBox.Items.Contains("Tile size mismatch detected."))
+                    ErrorsListBox.Items.Add("Tile size mismatch detected.");
+            }
+            else
+            {
+                if (ErrorsListBox.Items.Contains("Tile size mismatch detected."))
+                    ErrorsListBox.Items.Remove("Tile size mismatch detected.");
+            }   
         }
 
         private void UpdateTilesetConfigText(SixLabors.ImageSharp.Size tileSize)
@@ -103,9 +130,20 @@ namespace JoTilesetMaker
                 TileWidthLabel.Content = LabelDefaultText;
                 TileHeightLabel.Content = LabelDefaultText;
                 UpdateTilesetConfigText(new SixLabors.ImageSharp.Size(0, 0));
+                if (ErrorsListBox.Items.Contains("Tile size mismatch detected."))
+                    ErrorsListBox.Items.Remove("Tile size mismatch detected.");
             }
             else
-            { 
+            {
+                var firstFilePath = TilesListBox.Items[0].ToString() ?? string.Empty;
+                if (!string.IsNullOrEmpty(firstFilePath))
+                {
+                    var tileSize = GetTileDimensions(firstFilePath);
+                    TileWidthLabel.Content = tileSize.Width;
+                    TileHeightLabel.Content = tileSize.Height;
+                    CheckTileSizeMismatch(tileSize.Width, tileSize.Height);
+                }
+
                 UpdateTilesetConfigText(GetTileDimensions(TilesListBox.Items[0].ToString() ?? string.Empty));
             }
         }
@@ -226,6 +264,9 @@ namespace JoTilesetMaker
 
             // clear errors
             ErrorsListBox.Items.Clear();
+
+            BackgroundColorPicker.SelectedColor = System.Windows.Media.Colors.Transparent;
+            BitDepthComboBox.SelectedItem = BitDepthComboBox.Items.OfType<ComboBoxItem>().FirstOrDefault(item => item.Tag.ToString() == DefaultBitDepth); // Default to 32 bits per pixel
         }
 
         private void MoveUpButton_Click(object sender, RoutedEventArgs e)
