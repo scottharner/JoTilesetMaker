@@ -154,6 +154,9 @@ namespace JoTilesetMaker
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.DefaultExt = ".tga";
             saveFileDialog.Filter = "Tile files (*.tga)|*.tga";
+            if (TilesetFilePathTextBlock.Text != LabelDefaultText)
+                saveFileDialog.FileName = TilesetFilePathTextBlock.Text; // Pre-populate with the current file path if it's not the default text
+
             if (saveFileDialog.ShowDialog() == true)
             {
                 TilesetFilePathTextBlock.Text = saveFileDialog.FileName;
