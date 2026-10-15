@@ -6,6 +6,7 @@ using SixLabors.ImageSharp.Processing;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace JoTilesetMaker
 {
@@ -50,7 +51,7 @@ namespace JoTilesetMaker
                     TileWidthLabel.Content = tileSize.Width;
                     TileHeightLabel.Content = tileSize.Height;
 
-                    UpdateTilesetConfigText(tileSize);
+                    UpdateTilesetCodeText(tileSize);
                     CheckTileSizeMismatch(tileSize.Width, tileSize.Height);
                 }
             }
@@ -81,32 +82,66 @@ namespace JoTilesetMaker
             }   
         }
 
-        private void UpdateTilesetConfigText(SixLabors.ImageSharp.Size tileSize)
+        private void UpdateTilesetCodeText(SixLabors.ImageSharp.Size tileSize)
         {
             if (TilesListBox.Items.Count == 0)
             {
-                TilesetConfigTextBox.Text = LabelDefaultText;
+                TilesetDefinitionTextBox.Text = LabelDefaultText;
+                TilesetInitializationTextBox.Text = LabelDefaultText;
                 return;
             }
 
-            var configString = "jo_tile game_tileset[] = {\n";
+            UpdateTilesetDefinitionText(tileSize);
+            UpdateTilesetInitializationText();
+        }
+
+        private void UpdateTilesetInitializationText()
+        {
+            if (TilesetInitializationTextBox != null)
+            {
+                var initializationString = String.Empty;
+
+                for (var i = 0; i < TilesListBox.Items.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        var colorString = BackgroundColorPicker.SelectedColor == System.Windows.Media.Colors.Transparent || BackgroundColorPicker.SelectedColor == null ? "JO_COLOR_Transparent" : $"JO_COLOR_RGB({BackgroundColorPicker.SelectedColor.Value.R},{BackgroundColorPicker.SelectedColor.Value.G},{BackgroundColorPicker.SelectedColor.Value.B})";
+                        var tilesetFileName = TilesetFilePathTextBlock.Text == LabelDefaultText ? LabelDefaultText : new FileInfo(TilesetFilePathTextBlock.Text).Name;
+                        initializationString += $"game{i + 1}_sprite_id = jo_sprite_add_tga_tileset(JO_ROOT_DIR, \"{tilesetFileName}\", {colorString}, game_tileset, GAME_TILE_COUNT);\n";
+                    }
+                    else
+                    {
+                        initializationString += $"game{i + 1}_sprite_id = game1_sprite_id + {i};\n";
+                    }
+                }
+
+                TilesetInitializationTextBox.Text = initializationString;
+            }
+        }
+
+        private void UpdateTilesetDefinitionText(SixLabors.ImageSharp.Size tileSize)
+        {
+            var tileVarDefinitionsString = String.Empty;
+            var definitionString = "jo_tile game_tileset[] = {\n";
 
             for (var i = 0; i < TilesListBox.Items.Count; i++)
             {
+                tileVarDefinitionsString += $"int game{i + 1}_sprite_id;\n";
                 var filePath = TilesListBox.Items[i].ToString();
                 if (i == TilesListBox.Items.Count - 1)
                 {
-                    configString += $"    {{ {i * tileSize.Width}, 0, {tileSize.Width}, {tileSize.Height} }}\n";
+                    definitionString += $"    {{ {i * tileSize.Width}, 0, {tileSize.Width}, {tileSize.Height} }}\n";
                 }
                 else
                 {
-                    configString += $"    {{ {i * tileSize.Width}, 0, {tileSize.Width}, {tileSize.Height} }},\n";
+                    definitionString += $"    {{ {i * tileSize.Width}, 0, {tileSize.Width}, {tileSize.Height} }},\n";
                 }
             }
 
-            configString += "};\n";
+            definitionString += "};\n\n";
+            definitionString += "#define GAME_TILE_COUNT JO_TILE_COUNT(game_tileset)\n";
 
-            TilesetConfigTextBox.Text = configString;
+            TilesetDefinitionTextBox.Text = tileVarDefinitionsString + "\n" + definitionString;
         }
 
         private SixLabors.ImageSharp.Size GetTileDimensions(string filePath)
@@ -129,7 +164,7 @@ namespace JoTilesetMaker
             {
                 TileWidthLabel.Content = LabelDefaultText;
                 TileHeightLabel.Content = LabelDefaultText;
-                UpdateTilesetConfigText(new SixLabors.ImageSharp.Size(0, 0));
+                UpdateTilesetCodeText(new SixLabors.ImageSharp.Size(0, 0));
                 if (ErrorsListBox.Items.Contains("Tile size mismatch detected."))
                     ErrorsListBox.Items.Remove("Tile size mismatch detected.");
             }
@@ -144,13 +179,12 @@ namespace JoTilesetMaker
                     CheckTileSizeMismatch(tileSize.Width, tileSize.Height);
                 }
 
-                UpdateTilesetConfigText(GetTileDimensions(TilesListBox.Items[0].ToString() ?? string.Empty));
+                UpdateTilesetCodeText(GetTileDimensions(TilesListBox.Items[0].ToString() ?? string.Empty));
             }
         }
 
         private void SetTilesetFilePathButton_Click(object sender, RoutedEventArgs e)
         {
-            // todo - if file path was already set, we should pre populate it
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.DefaultExt = ".tga";
             saveFileDialog.Filter = "Tile files (*.tga)|*.tga";
@@ -173,15 +207,24 @@ namespace JoTilesetMaker
                     if (ErrorsListBox.Items.Contains(fileNameLengthError))
                         ErrorsListBox.Items.Remove(fileNameLengthError);
                 }
+
+                UpdateTilesetInitializationText();
             }
 
         }
 
-        private void CopyConfigButton_Click(object sender, RoutedEventArgs e)
+        private void CopyInitializationButton_Click(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(TilesetConfigTextBox.Text);
+            Clipboard.SetText(TilesetInitializationTextBox.Text);
 
-            MessageBox.Show("Tileset configuration copied successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Tileset initialization copied successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void CopyDefinitionButton_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(TilesetDefinitionTextBox.Text);
+
+            MessageBox.Show("Tileset definition copied successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void BuildTilesetButton_Click(object sender, RoutedEventArgs e)
@@ -202,7 +245,7 @@ namespace JoTilesetMaker
 
             }
 
-            var backgroundColor = Color.Transparent.ToPixel<Rgba32>();
+            var backgroundColor = SixLabors.ImageSharp.Color.Transparent.ToPixel<Rgba32>();
             if (BackgroundColorPicker.SelectedColor != null)
                 backgroundColor = new Rgba32(BackgroundColorPicker.SelectedColor.Value.R, BackgroundColorPicker.SelectedColor.Value.G, BackgroundColorPicker.SelectedColor.Value.B, BackgroundColorPicker.SelectedColor.Value.A);
 
@@ -262,8 +305,9 @@ namespace JoTilesetMaker
             // clear tileset file path
             TilesetFilePathTextBlock.Text = LabelDefaultText;
 
-            // clear tileset config
-            TilesetConfigTextBox.Text = LabelDefaultText;
+            // clear tileset code
+            TilesetInitializationTextBox.Text = LabelDefaultText;
+            TilesetDefinitionTextBox.Text = LabelDefaultText;
 
             // clear errors
             ErrorsListBox.Items.Clear();
@@ -294,6 +338,11 @@ namespace JoTilesetMaker
                 TilesListBox.Items.Insert(selectedIndex + 1, selectedItem);
                 TilesListBox.SelectedIndex = selectedIndex + 1;
             }
+        }
+
+        private void BackgroundColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<System.Windows.Media.Color?> e)
+        {
+            UpdateTilesetInitializationText();
         }
     }
 }

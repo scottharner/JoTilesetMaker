@@ -82,7 +82,7 @@
                             <ComboBoxItem Content="32-bit" Tag="32" IsSelected="True"/>
                         </ComboBox>
                         <Label Content="Background Color:" FontSize="18"/>
-                        <xctk:ColorPicker x:Name="BackgroundColorPicker" SelectedColor="Transparent"  Width="150" Height="30" Margin="10"/>
+                        <xctk:ColorPicker x:Name="BackgroundColorPicker" SelectedColor="Transparent"  Width="150" Height="30" Margin="10" SelectedColorChanged="BackgroundColorPicker_SelectedColorChanged"/>
                     </StackPanel>
                     <Grid Grid.Row="3" Margin="10">
                         <Grid.ColumnDefinitions>
@@ -120,9 +120,6 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" Margin="10">
@@ -136,19 +133,44 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Tileset Config" FontSize="18"/>
+                        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Tileset Definition" FontSize="18"/>
                         <TextBox 
-                Grid.Row="1" 
-                Grid.RowSpan="2" 
-                Grid.ColumnSpan="2" 
-                x:Name="TilesetConfigTextBox" 
-                TextWrapping="Wrap"
-                AcceptsReturn="True"
-                IsReadOnly="True"
-                Text="N/A"
-                Padding="5"
-                Margin="0,10,0,0"/>
-                        <Button Grid.Row="1" Grid.Column="2" Content="Copy Config" Margin="10" Click="CopyConfigButton_Click"/>
+                            Grid.Row="1" 
+                            Grid.RowSpan="2" 
+                            Grid.ColumnSpan="2" 
+                            x:Name="TilesetDefinitionTextBox" 
+                            TextWrapping="Wrap"
+                            AcceptsReturn="True"
+                            IsReadOnly="True"
+                            Text="N/A"
+                            Padding="5"
+                            Margin="0,10,0,0"/>
+                        <Button Grid.Row="1" Grid.Column="2" Content="Copy Definition" Margin="10" Click="CopyDefinitionButton_Click"/>
+                    </Grid>
+                    <Grid Grid.Row="1" Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="200"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Tileset Initialization" FontSize="18"/>
+                        <TextBox 
+                            Grid.Row="1" 
+                            Grid.RowSpan="2" 
+                            Grid.ColumnSpan="2" 
+                            x:Name="TilesetInitializationTextBox" 
+                            TextWrapping="Wrap"
+                            AcceptsReturn="True"
+                            IsReadOnly="True"
+                            Text="N/A"
+                            Padding="5"
+                            Margin="0,10,0,0"/>
+                        <Button Grid.Row="1" Grid.Column="2" Content="Copy Initialization" Margin="10" Click="CopyInitializationButton_Click"/>
                     </Grid>
                 </Grid>
             </TabItem>
