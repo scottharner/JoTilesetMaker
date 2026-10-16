@@ -15,7 +15,6 @@ namespace JoTilesetMaker
     /// </summary>
     public partial class MainWindow : Window
     {
-        const string LabelDefaultText = "N/A";
         const int MaxFileNameLength = 8;
         const string DefaultBitDepth = "32"; // Default to 32 bits per pixel    
 
@@ -29,7 +28,7 @@ namespace JoTilesetMaker
             bool tileAdded = false;
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Multiselect = true;
-            openFileDialog.Filter = "Tile files (*.tga)|*.tga";
+            openFileDialog.Filter = Strings.TgaFilter;
             if (openFileDialog.ShowDialog() == true)
             {
                 foreach (var filePath in openFileDialog.FileNames)
@@ -72,13 +71,13 @@ namespace JoTilesetMaker
 
             if (mismatchFound)
             {
-                if (!ErrorsListBox.Items.Contains("Tile size mismatch detected."))
-                    ErrorsListBox.Items.Add("Tile size mismatch detected.");
+                if (!ErrorsListBox.Items.Contains(Strings.TileSizeMismatch))
+                    ErrorsListBox.Items.Add(Strings.TileSizeMismatch);
             }
             else
             {
-                if (ErrorsListBox.Items.Contains("Tile size mismatch detected."))
-                    ErrorsListBox.Items.Remove("Tile size mismatch detected.");
+                if (ErrorsListBox.Items.Contains(Strings.TileSizeMismatch))
+                    ErrorsListBox.Items.Remove(Strings.TileSizeMismatch);
             }   
         }
 
@@ -86,8 +85,8 @@ namespace JoTilesetMaker
         {
             if (TilesListBox.Items.Count == 0)
             {
-                TilesetDefinitionTextBox.Text = LabelDefaultText;
-                TilesetInitializationTextBox.Text = LabelDefaultText;
+                TilesetDefinitionTextBox.Text = Strings.NotApplicable;
+                TilesetInitializationTextBox.Text = Strings.NotApplicable;
                 return;
             }
 
@@ -106,7 +105,7 @@ namespace JoTilesetMaker
                     if (i == 0)
                     {
                         var colorString = BackgroundColorPicker.SelectedColor == System.Windows.Media.Colors.Transparent || BackgroundColorPicker.SelectedColor == null ? "JO_COLOR_Transparent" : $"JO_COLOR_RGB({BackgroundColorPicker.SelectedColor.Value.R},{BackgroundColorPicker.SelectedColor.Value.G},{BackgroundColorPicker.SelectedColor.Value.B})";
-                        var tilesetFileName = TilesetFilePathTextBlock.Text == LabelDefaultText ? LabelDefaultText : new FileInfo(TilesetFilePathTextBlock.Text).Name;
+                        var tilesetFileName = TilesetFilePathTextBlock.Text == Strings.NotApplicable ? Strings.NotApplicable : new FileInfo(TilesetFilePathTextBlock.Text).Name;
                         initializationString += $"game{i + 1}_sprite_id = jo_sprite_add_tga_tileset(JO_ROOT_DIR, \"{tilesetFileName}\", {colorString}, game_tileset, GAME_TILE_COUNT);\n";
                     }
                     else
@@ -162,11 +161,11 @@ namespace JoTilesetMaker
 
             if (TilesListBox.Items.Count == 0)
             {
-                TileWidthLabel.Content = LabelDefaultText;
-                TileHeightLabel.Content = LabelDefaultText;
+                TileWidthLabel.Content = Strings.NotApplicable;
+                TileHeightLabel.Content = Strings.NotApplicable;
                 UpdateTilesetCodeText(new SixLabors.ImageSharp.Size(0, 0));
-                if (ErrorsListBox.Items.Contains("Tile size mismatch detected."))
-                    ErrorsListBox.Items.Remove("Tile size mismatch detected.");
+                if (ErrorsListBox.Items.Contains(Strings.TileSizeMismatch))
+                    ErrorsListBox.Items.Remove(Strings.TileSizeMismatch);
             }
             else
             {
@@ -187,8 +186,8 @@ namespace JoTilesetMaker
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.DefaultExt = ".tga";
-            saveFileDialog.Filter = "Tile files (*.tga)|*.tga";
-            if (TilesetFilePathTextBlock.Text != LabelDefaultText)
+            saveFileDialog.Filter = Strings.TgaFilter;
+            if (TilesetFilePathTextBlock.Text != Strings.NotApplicable)
                 saveFileDialog.FileName = TilesetFilePathTextBlock.Text; // Pre-populate with the current file path if it's not the default text
 
             if (saveFileDialog.ShowDialog() == true)
@@ -196,7 +195,7 @@ namespace JoTilesetMaker
                 TilesetFilePathTextBlock.Text = saveFileDialog.FileName;
                 FileInfo saveFileInfo = new FileInfo(saveFileDialog.FileName);
                 var extensionlessFileName = saveFileInfo.Name.Replace(saveFileInfo.Extension, "");
-                var fileNameLengthError = $"The tileset file name exceeds {MaxFileNameLength} characters.";
+                var fileNameLengthError = String.Format(Strings.FilenameMaxCharacters, MaxFileNameLength);
                 if (extensionlessFileName.Length > MaxFileNameLength)
                 {
                     if (!ErrorsListBox.Items.Contains(fileNameLengthError))
@@ -217,14 +216,14 @@ namespace JoTilesetMaker
         {
             Clipboard.SetText(TilesetInitializationTextBox.Text);
 
-            MessageBox.Show("Tileset initialization copied successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(Strings.TilesetInitializationCopied, Strings.Success, MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void CopyDefinitionButton_Click(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(TilesetDefinitionTextBox.Text);
 
-            MessageBox.Show("Tileset definition copied successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(Strings.TilesetDefinitionCopied, Strings.Success, MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void BuildTilesetButton_Click(object sender, RoutedEventArgs e)
@@ -232,8 +231,8 @@ namespace JoTilesetMaker
             if (File.Exists(TilesetFilePathTextBlock.Text))
             {
                 var result = MessageBox.Show(
-                    "The file already exists. Are you sure you want to overwrite it with a new tileset file?",
-                    "Overwrite Tileset File",
+                    Strings.OverwriteConfirmation,
+                    Strings.OverwriteTilesetFile,
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question
                 );
@@ -266,7 +265,7 @@ namespace JoTilesetMaker
                 16 => TgaBitsPerPixel.Bit16,
                 24 => TgaBitsPerPixel.Bit24,
                 32 => TgaBitsPerPixel.Bit32,
-                _ => throw new InvalidOperationException("Invalid bits per pixel value.")
+                _ => throw new InvalidOperationException(Strings.InvalidBits)
             };
 
             targetImage.Save(TilesetFilePathTextBlock.Text, new TgaEncoder
@@ -275,14 +274,14 @@ namespace JoTilesetMaker
                 Compression = TgaCompression.None
             });
 
-            MessageBox.Show("Tileset built successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(Strings.TilesetSuccess, Strings.Success, MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void ResetTilesetButton_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show(
-                "Are you sure you want to reset all tile data?",
-                "Reset Tile Data",
+                Strings.AreYouSure,
+                Strings.ResetTileData,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question
             );
@@ -299,15 +298,15 @@ namespace JoTilesetMaker
             TilesListBox.Items.Clear();
 
             // reset tile properties
-            TileWidthLabel.Content = LabelDefaultText;
-            TileHeightLabel.Content = LabelDefaultText;
+            TileWidthLabel.Content = Strings.NotApplicable;
+            TileHeightLabel.Content = Strings.NotApplicable;
 
             // clear tileset file path
-            TilesetFilePathTextBlock.Text = LabelDefaultText;
+            TilesetFilePathTextBlock.Text = Strings.NotApplicable;
 
             // clear tileset code
-            TilesetInitializationTextBox.Text = LabelDefaultText;
-            TilesetDefinitionTextBox.Text = LabelDefaultText;
+            TilesetInitializationTextBox.Text = Strings.NotApplicable;
+            TilesetDefinitionTextBox.Text = Strings.NotApplicable;
 
             // clear errors
             ErrorsListBox.Items.Clear();

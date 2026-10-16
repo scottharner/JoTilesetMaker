@@ -10,10 +10,10 @@
         Title="MainWindow" Height="800" Width="800">
     <Grid>
         <TabControl>
-            <TabItem Header="Build">
+            <TabItem Header="{x:Static local:Strings.Build}">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
@@ -32,25 +32,25 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Tiles" FontSize="18"/>
+                        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="{x:Static local:Strings.Tiles}" FontSize="18"/>
                         <ListBox 
-                Grid.Row="1" 
-                Grid.RowSpan="3" 
-                Grid.ColumnSpan="2" 
-                x:Name="TilesListBox" 
-                Margin="0,10,0,0"
-                SelectionMode="Extended"/>
-                        <Button Grid.Row="1" Grid.Column="2" Content="Add Tile(s)" Margin="10" Click="AddTileButton_Click"/>
-                        <Button Grid.Row="2" Grid.Column="2" Content="Remove Tile(s)" Margin="10" Click="RemoveTileButton_Click"/>
+                            Grid.Row="1" 
+                            Grid.RowSpan="3" 
+                            Grid.ColumnSpan="2" 
+                            x:Name="TilesListBox" 
+                            Margin="0,10,0,0"
+                            SelectionMode="Extended"/>
+                        <Button Grid.Row="1" Grid.Column="2" Content="{x:Static local:Strings.AddTiles}" Margin="10" Click="AddTileButton_Click"/>
+                        <Button Grid.Row="2" Grid.Column="2" Content="{x:Static local:Strings.RemoveTiles}" Margin="10" Click="RemoveTileButton_Click"/>
                         <StackPanel Grid.Row="3" Grid.Column="2" Margin="10">
-                            <Label Content="Tile Properties" FontSize="18"/>
+                            <Label Content="{x:Static local:Strings.TileProperties}" FontSize="18"/>
                             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                                <Label Content="Tile Width:"/>
-                                <Label x:Name="TileWidthLabel" Margin="10,0,0,0" Width="100" Content="N/A"/>
+                                <Label Content="{x:Static local:Strings.TileWidth}"/>
+                                <Label x:Name="TileWidthLabel" Margin="10,0,0,0" Width="100" Content="{x:Static local:Strings.NotApplicable}"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Label Content="Tile Height:"/>
-                                <Label x:Name="TileHeightLabel" Margin="10,0,0,0" Width="100" Content="N/A"/>
+                                <Label Content="{x:Static local:Strings.TileHeight}"/>
+                                <Label x:Name="TileHeightLabel" Margin="10,0,0,0" Width="100" Content="{x:Static local:Strings.NotApplicable}"/>
                             </StackPanel>
                         </StackPanel>
                         <Grid Grid.Row="4" Grid.ColumnSpan="2">
@@ -59,8 +59,8 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="200"/>
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Content="Move Up" Margin="10" Click="MoveUpButton_Click"/>
-                            <Button Grid.Column="2" Content="Move Down" Margin="10" Click="MoveDownButton_Click"/>
+                            <Button Grid.Column="0" Content="{x:Static local:Strings.MoveUp}" Margin="10" Click="MoveUpButton_Click"/>
+                            <Button Grid.Column="2" Content="{x:Static local:Strings.MoveDown}" Margin="10" Click="MoveDownButton_Click"/>
                         </Grid>
                     </Grid>
                     <Grid Grid.Row="1" Margin="10">
@@ -69,19 +69,19 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="200"/>
                         </Grid.ColumnDefinitions>
-                        <Label Content="Tileset File Path:" FontSize="18" Padding="5,0,0,0" VerticalContentAlignment="Top" Grid.Column="0"/>
-                        <TextBlock x:Name="TilesetFilePathTextBlock" TextWrapping="Wrap"  FontSize="18" Margin="10,0,0,0" Width="400" Text="N/A" Grid.Column="1"/>
-                        <Button Content="Set Tileset File Path" Margin="10,0,10,10" Click="SetTilesetFilePathButton_Click" Grid.Column="2"/>
+                        <Label Content="{x:Static local:Strings.TilesetFilePath}" FontSize="18" Padding="5,0,0,0" VerticalContentAlignment="Top" Grid.Column="0"/>
+                        <TextBlock x:Name="TilesetFilePathTextBlock" TextWrapping="Wrap"  FontSize="18" Margin="10,0,0,0" Width="400" Text="{x:Static local:Strings.NotApplicable}" Grid.Column="1"/>
+                        <Button Content="{x:Static local:Strings.SetTilesetFilePath}" Margin="10,0,10,10" Click="SetTilesetFilePathButton_Click" Grid.Column="2"/>
                     </Grid>
                     <StackPanel Grid.Row="2" Margin="10" Orientation="Horizontal">
-                        <Label Content="Bit Depth:" FontSize="18"/>
+                        <Label Content="{x:Static local:Strings.BitDepth}" FontSize="18"/>
                         <ComboBox Grid.Column="1" x:Name="BitDepthComboBox" Margin="10">
-                            <ComboBoxItem Content="8-bit" Tag="8"/>
-                            <ComboBoxItem Content="16-bit" Tag="16"/>
-                            <ComboBoxItem Content="24-bit" Tag="24"/>
-                            <ComboBoxItem Content="32-bit" Tag="32" IsSelected="True"/>
+                            <ComboBoxItem Content="{x:Static local:Strings._8Bit}" Tag="8"/>
+                            <ComboBoxItem Content="{x:Static local:Strings._16Bit}" Tag="16"/>
+                            <ComboBoxItem Content="{x:Static local:Strings._24Bit}" Tag="24"/>
+                            <ComboBoxItem Content="{x:Static local:Strings._32Bit}" Tag="32" IsSelected="True"/>
                         </ComboBox>
-                        <Label Content="Background Color:" FontSize="18"/>
+                        <Label Content="{x:Static local:Strings.BackgroundColor}" FontSize="18"/>
                         <xctk:ColorPicker x:Name="BackgroundColorPicker" SelectedColor="Transparent"  Width="150" Height="30" Margin="10" SelectedColorChanged="BackgroundColorPicker_SelectedColorChanged"/>
                     </StackPanel>
                     <Grid Grid.Row="3" Margin="10">
@@ -96,7 +96,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Errors" FontSize="18"/>
+                        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="{x:Static local:Strings.Errors}" FontSize="18"/>
                         <ListBox 
                             Grid.Row="1" 
                             Grid.RowSpan="3" 
@@ -111,12 +111,12 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="200"/>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Content="Build Tileset" Margin="10" Click="BuildTilesetButton_Click"/>
-                        <Button Grid.Column="2" Content="Reset Tileset" Margin="10" Click="ResetTilesetButton_Click"/>
+                        <Button Grid.Column="0" Content="{x:Static local:Strings.BuildTileset}" Margin="10" Click="BuildTilesetButton_Click"/>
+                        <Button Grid.Column="2" Content="{x:Static local:Strings.ResetTileset}" Margin="10" Click="ResetTilesetButton_Click"/>
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Code">
+            <TabItem Header="{x:Static local:Strings.Code}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -133,7 +133,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Tileset Definition" FontSize="18"/>
+                        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="{x:Static local:Strings.TilesetDefinition}" FontSize="18"/>
                         <TextBox 
                             Grid.Row="1" 
                             Grid.RowSpan="2" 
@@ -142,10 +142,10 @@
                             TextWrapping="Wrap"
                             AcceptsReturn="True"
                             IsReadOnly="True"
-                            Text="N/A"
+                            Text="{x:Static local:Strings.NotApplicable}"
                             Padding="5"
                             Margin="0,10,0,0"/>
-                        <Button Grid.Row="1" Grid.Column="2" Content="Copy Definition" Margin="10" Click="CopyDefinitionButton_Click"/>
+                        <Button Grid.Row="1" Grid.Column="2" Content="{x:Static local:Strings.CopyDefinition}" Margin="10" Click="CopyDefinitionButton_Click"/>
                     </Grid>
                     <Grid Grid.Row="1" Margin="10">
                         <Grid.ColumnDefinitions>
@@ -158,7 +158,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Tileset Initialization" FontSize="18"/>
+                        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="{x:Static local:Strings.TilesetInitialization}" FontSize="18"/>
                         <TextBox 
                             Grid.Row="1" 
                             Grid.RowSpan="2" 
@@ -167,10 +167,10 @@
                             TextWrapping="Wrap"
                             AcceptsReturn="True"
                             IsReadOnly="True"
-                            Text="N/A"
+                            Text="{x:Static local:Strings.NotApplicable}"
                             Padding="5"
                             Margin="0,10,0,0"/>
-                        <Button Grid.Row="1" Grid.Column="2" Content="Copy Initialization" Margin="10" Click="CopyInitializationButton_Click"/>
+                        <Button Grid.Row="1" Grid.Column="2" Content="{x:Static local:Strings.CopyInitialization}" Margin="10" Click="CopyInitializationButton_Click"/>
                     </Grid>
                 </Grid>
             </TabItem>

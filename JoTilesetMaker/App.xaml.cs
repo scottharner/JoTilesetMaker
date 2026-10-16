@@ -16,7 +16,7 @@ namespace JoTilesetMaker
 
         void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            MessageBox.Show($"An unhandled exception occurred: {e.Exception.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(String.Format(Strings.UnhandledException, e.Exception.Message), Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             e.Handled = true;
         }
     }
