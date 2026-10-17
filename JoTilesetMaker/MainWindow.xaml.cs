@@ -4,6 +4,7 @@ using SixLabors.ImageSharp.Formats.Tga;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -278,21 +279,21 @@ namespace JoTilesetMaker
 
         }
 
-        private void CopyInitializationButton_Click(object sender, RoutedEventArgs e)
+        private async void CopyInitializationButton_Click(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(TilesetInitializationTextBox.Text);
 
-            MessageBox.Show(Strings.TilesetInitializationCopied, Strings.Success, MessageBoxButton.OK, MessageBoxImage.Information);
+            await InfoDialog.ShowAsync(Strings.TilesetInitializationCopied, Strings.Success);
         }
 
-        private void CopyDefinitionButton_Click(object sender, RoutedEventArgs e)
+        private async void CopyDefinitionButton_Click(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(TilesetDefinitionTextBox.Text);
 
-            MessageBox.Show(Strings.TilesetDefinitionCopied, Strings.Success, MessageBoxButton.OK, MessageBoxImage.Information);
+            await InfoDialog.ShowAsync(Strings.TilesetDefinitionCopied, Strings.Success);
         }
 
-        private void BuildTilesetButton_Click(object sender, RoutedEventArgs e)
+        private async void BuildTilesetButton_Click(object sender, RoutedEventArgs e)
         {
             if (File.Exists(TilesetFilePathTextBlock.Text))
             {
@@ -340,7 +341,8 @@ namespace JoTilesetMaker
                 Compression = TgaCompression.None
             });
 
-            MessageBox.Show(Strings.TilesetSuccess, Strings.Success, MessageBoxButton.OK, MessageBoxImage.Information);
+
+            await InfoDialog.ShowAsync(Strings.TilesetSuccess, Strings.Success);
         }
 
         private void ResetTilesetButton_Click(object sender, RoutedEventArgs e)

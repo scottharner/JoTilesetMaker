@@ -241,6 +241,15 @@ namespace JoTilesetMaker {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string Ok {
+            get {
+                return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file already exists. Are you sure you want to overwrite it with a new tileset file?.
         /// </summary>
         public static string OverwriteConfirmation {

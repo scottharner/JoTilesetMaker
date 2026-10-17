@@ -6,175 +6,178 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:JoTilesetMaker"
         mc:Ignorable="d"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         Style="{StaticResource MaterialDesignWindow}"
         Title="MainWindow" Height="800" Width="800">
-    <Grid>
-        <TabControl>
-            <TabItem Header="{x:Static local:Strings.Build}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="2*"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Margin="10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="200"/>
-                        </Grid.ColumnDefinitions>
+    <md:DialogHost Identifier="InfoDialog">
+        <Grid>
+            <TabControl>
+                <TabItem Header="{x:Static local:Strings.Build}">
+                    <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="2*"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="{x:Static local:Strings.Tiles}" FontSize="18"/>
-                        <ListBox 
-                            Grid.Row="1" 
-                            Grid.RowSpan="3" 
-                            Grid.ColumnSpan="2" 
-                            x:Name="TilesListBox" 
-                            Margin="0,10,0,0"
-                            SelectionChanged="TilesListBox_SelectionChanged"
-                            SelectionMode="Extended"/>
-                        <Button Grid.Row="1" Grid.Column="2" Content="{x:Static local:Strings.AddTiles}" Margin="10" Click="AddTileButton_Click"/>
-                        <Button Grid.Row="2" Grid.Column="2" Content="{x:Static local:Strings.RemoveTiles}" x:Name="RemoveTileButton" Margin="10" Click="RemoveTileButton_Click" IsEnabled="False"/>
-                        <StackPanel Grid.Row="3" Grid.Column="2" Margin="10">
-                            <Label Content="{x:Static local:Strings.TileProperties}" FontSize="18"/>
-                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                                <Label Content="{x:Static local:Strings.TileWidth}"/>
-                                <Label x:Name="TileWidthLabel" Margin="10,0,0,0" Width="100" Content="{x:Static local:Strings.NotApplicable}"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Label Content="{x:Static local:Strings.TileHeight}"/>
-                                <Label x:Name="TileHeightLabel" Margin="10,0,0,0" Width="100" Content="{x:Static local:Strings.NotApplicable}"/>
-                            </StackPanel>
-                        </StackPanel>
-                        <Grid Grid.Row="4" Grid.ColumnSpan="2">
+                        <Grid Grid.Row="0" Margin="10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="200"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="200"/>
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" x:Name="MoveUpButton" Content="{x:Static local:Strings.MoveUp}" Margin="10" Click="MoveUpButton_Click" IsEnabled="False"/>
-                            <Button Grid.Column="2" x:Name="MoveDownButton" Content="{x:Static local:Strings.MoveDown}" Margin="10" Click="MoveDownButton_Click" IsEnabled="False"/>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.ColumnSpan="2" Content="{x:Static local:Strings.Tiles}" FontSize="18"/>
+                            <ListBox 
+                                Grid.Row="1" 
+                                Grid.RowSpan="3" 
+                                Grid.ColumnSpan="2" 
+                                x:Name="TilesListBox" 
+                                Margin="0,10,0,0"
+                                SelectionChanged="TilesListBox_SelectionChanged"
+                                SelectionMode="Extended"/>
+                            <Button Grid.Row="1" Grid.Column="2" Content="{x:Static local:Strings.AddTiles}" Margin="10" Click="AddTileButton_Click"/>
+                            <Button Grid.Row="2" Grid.Column="2" Content="{x:Static local:Strings.RemoveTiles}" x:Name="RemoveTileButton" Margin="10" Click="RemoveTileButton_Click" IsEnabled="False"/>
+                            <StackPanel Grid.Row="3" Grid.Column="2" Margin="10">
+                                <Label Content="{x:Static local:Strings.TileProperties}" FontSize="18"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                    <Label Content="{x:Static local:Strings.TileWidth}"/>
+                                    <Label x:Name="TileWidthLabel" Margin="10,0,0,0" Width="100" Content="{x:Static local:Strings.NotApplicable}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="{x:Static local:Strings.TileHeight}"/>
+                                    <Label x:Name="TileHeightLabel" Margin="10,0,0,0" Width="100" Content="{x:Static local:Strings.NotApplicable}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <Grid Grid.Row="4" Grid.ColumnSpan="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="200"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="200"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" x:Name="MoveUpButton" Content="{x:Static local:Strings.MoveUp}" Margin="10" Click="MoveUpButton_Click" IsEnabled="False"/>
+                                <Button Grid.Column="2" x:Name="MoveDownButton" Content="{x:Static local:Strings.MoveDown}" Margin="10" Click="MoveDownButton_Click" IsEnabled="False"/>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{x:Static local:Strings.TilesetFilePath}" FontSize="18" Padding="5,0,0,0" VerticalContentAlignment="Top" Grid.Column="0"/>
+                            <TextBlock x:Name="TilesetFilePathTextBlock" TextWrapping="Wrap"  FontSize="18" Margin="10,0,0,0" Width="400" Text="{x:Static local:Strings.NotApplicable}" Grid.Column="1"/>
+                            <Button Content="{x:Static local:Strings.SetTilesetFilePath}" Margin="10,0,10,10" Click="SetTilesetFilePathButton_Click" Grid.Column="2"/>
+                        </Grid>
+                        <StackPanel Grid.Row="2" Margin="10" Orientation="Horizontal">
+                            <Label Content="{x:Static local:Strings.BitDepth}" FontSize="18"/>
+                            <ComboBox Grid.Column="1" x:Name="BitDepthComboBox" Margin="10">
+                                <ComboBoxItem Content="{x:Static local:Strings._8Bit}" Tag="8"/>
+                                <ComboBoxItem Content="{x:Static local:Strings._16Bit}" Tag="16"/>
+                                <ComboBoxItem Content="{x:Static local:Strings._24Bit}" Tag="24"/>
+                                <ComboBoxItem Content="{x:Static local:Strings._32Bit}" Tag="32" IsSelected="True"/>
+                            </ComboBox>
+                            <Label Content="{x:Static local:Strings.BackgroundColor}" FontSize="18"/>
+                            <xctk:ColorPicker x:Name="BackgroundColorPicker" SelectedColor="Transparent"  Width="150" Height="30" Margin="10" SelectedColorChanged="BackgroundColorPicker_SelectedColorChanged"/>
+                        </StackPanel>
+                        <Grid Grid.Row="3" Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.ColumnSpan="2" Content="{x:Static local:Strings.Errors}" FontSize="18"/>
+                            <ListBox 
+                                Grid.Row="1" 
+                                Grid.RowSpan="3" 
+                                Grid.ColumnSpan="2" 
+                                x:Name="ErrorsListBox" 
+                                Margin="0,10,0,0"
+                                SelectionMode="Extended"/>
+                        </Grid>
+                        <Grid Grid.Row="4" Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" x:Name="BuildTilesetButton" Content="{x:Static local:Strings.BuildTileset}" Margin="10" Click="BuildTilesetButton_Click" IsEnabled="False"/>
+                            <Button Grid.Column="2" Content="{x:Static local:Strings.ResetTileset}" Margin="10" Click="ResetTilesetButton_Click"/>
                         </Grid>
                     </Grid>
-                    <Grid Grid.Row="1" Margin="10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="200"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Content="{x:Static local:Strings.TilesetFilePath}" FontSize="18" Padding="5,0,0,0" VerticalContentAlignment="Top" Grid.Column="0"/>
-                        <TextBlock x:Name="TilesetFilePathTextBlock" TextWrapping="Wrap"  FontSize="18" Margin="10,0,0,0" Width="400" Text="{x:Static local:Strings.NotApplicable}" Grid.Column="1"/>
-                        <Button Content="{x:Static local:Strings.SetTilesetFilePath}" Margin="10,0,10,10" Click="SetTilesetFilePathButton_Click" Grid.Column="2"/>
-                    </Grid>
-                    <StackPanel Grid.Row="2" Margin="10" Orientation="Horizontal">
-                        <Label Content="{x:Static local:Strings.BitDepth}" FontSize="18"/>
-                        <ComboBox Grid.Column="1" x:Name="BitDepthComboBox" Margin="10">
-                            <ComboBoxItem Content="{x:Static local:Strings._8Bit}" Tag="8"/>
-                            <ComboBoxItem Content="{x:Static local:Strings._16Bit}" Tag="16"/>
-                            <ComboBoxItem Content="{x:Static local:Strings._24Bit}" Tag="24"/>
-                            <ComboBoxItem Content="{x:Static local:Strings._32Bit}" Tag="32" IsSelected="True"/>
-                        </ComboBox>
-                        <Label Content="{x:Static local:Strings.BackgroundColor}" FontSize="18"/>
-                        <xctk:ColorPicker x:Name="BackgroundColorPicker" SelectedColor="Transparent"  Width="150" Height="30" Margin="10" SelectedColorChanged="BackgroundColorPicker_SelectedColorChanged"/>
-                    </StackPanel>
-                    <Grid Grid.Row="3" Margin="10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="200"/>
-                        </Grid.ColumnDefinitions>
+                </TabItem>
+                <TabItem Header="{x:Static local:Strings.Code}">
+                    <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="{x:Static local:Strings.Errors}" FontSize="18"/>
-                        <ListBox 
-                            Grid.Row="1" 
-                            Grid.RowSpan="3" 
-                            Grid.ColumnSpan="2" 
-                            x:Name="ErrorsListBox" 
-                            Margin="0,10,0,0"
-                            SelectionMode="Extended"/>
+                        <Grid Grid.Row="0" Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.ColumnSpan="2" Content="{x:Static local:Strings.TilesetDefinition}" FontSize="18"/>
+                            <TextBox 
+                                Grid.Row="1" 
+                                Grid.RowSpan="2" 
+                                Grid.ColumnSpan="2" 
+                                x:Name="TilesetDefinitionTextBox" 
+                                TextWrapping="Wrap"
+                                AcceptsReturn="True"
+                                IsReadOnly="True"
+                                Text="{x:Static local:Strings.NotApplicable}"
+                                Padding="5"
+                                Margin="0,10,0,0"/>
+                            <Button Grid.Row="1" Grid.Column="2" x:Name="CopyDefinitionButton" Content="{x:Static local:Strings.CopyDefinition}" Margin="10" Click="CopyDefinitionButton_Click" IsEnabled="False"/>
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.ColumnSpan="2" Content="{x:Static local:Strings.TilesetInitialization}" FontSize="18"/>
+                            <TextBox 
+                                Grid.Row="1" 
+                                Grid.RowSpan="2" 
+                                Grid.ColumnSpan="2" 
+                                x:Name="TilesetInitializationTextBox" 
+                                TextWrapping="Wrap"
+                                AcceptsReturn="True"
+                                IsReadOnly="True"
+                                Text="{x:Static local:Strings.NotApplicable}"
+                                Padding="5"
+                                Margin="0,10,0,0"/>
+                            <Button Grid.Row="1" Grid.Column="2" x:Name="CopyInitializationButton" Content="{x:Static local:Strings.CopyInitialization}" Margin="10" Click="CopyInitializationButton_Click" IsEnabled="False"/>
+                        </Grid>
                     </Grid>
-                    <Grid Grid.Row="4" Margin="10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="200"/>
-                        </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" x:Name="BuildTilesetButton" Content="{x:Static local:Strings.BuildTileset}" Margin="10" Click="BuildTilesetButton_Click" IsEnabled="False"/>
-                        <Button Grid.Column="2" Content="{x:Static local:Strings.ResetTileset}" Margin="10" Click="ResetTilesetButton_Click"/>
-                    </Grid>
-                </Grid>
-            </TabItem>
-            <TabItem Header="{x:Static local:Strings.Code}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Margin="10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="200"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="{x:Static local:Strings.TilesetDefinition}" FontSize="18"/>
-                        <TextBox 
-                            Grid.Row="1" 
-                            Grid.RowSpan="2" 
-                            Grid.ColumnSpan="2" 
-                            x:Name="TilesetDefinitionTextBox" 
-                            TextWrapping="Wrap"
-                            AcceptsReturn="True"
-                            IsReadOnly="True"
-                            Text="{x:Static local:Strings.NotApplicable}"
-                            Padding="5"
-                            Margin="0,10,0,0"/>
-                        <Button Grid.Row="1" Grid.Column="2" x:Name="CopyDefinitionButton" Content="{x:Static local:Strings.CopyDefinition}" Margin="10" Click="CopyDefinitionButton_Click" IsEnabled="False"/>
-                    </Grid>
-                    <Grid Grid.Row="1" Margin="10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="200"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="{x:Static local:Strings.TilesetInitialization}" FontSize="18"/>
-                        <TextBox 
-                            Grid.Row="1" 
-                            Grid.RowSpan="2" 
-                            Grid.ColumnSpan="2" 
-                            x:Name="TilesetInitializationTextBox" 
-                            TextWrapping="Wrap"
-                            AcceptsReturn="True"
-                            IsReadOnly="True"
-                            Text="{x:Static local:Strings.NotApplicable}"
-                            Padding="5"
-                            Margin="0,10,0,0"/>
-                        <Button Grid.Row="1" Grid.Column="2" x:Name="CopyInitializationButton" Content="{x:Static local:Strings.CopyInitialization}" Margin="10" Click="CopyInitializationButton_Click" IsEnabled="False"/>
-                    </Grid>
-                </Grid>
-            </TabItem>
-        </TabControl>
-    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </md:DialogHost>
 </Window>

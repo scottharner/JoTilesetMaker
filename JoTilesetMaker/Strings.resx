@@ -177,6 +177,9 @@
   <data name="NotApplicable" xml:space="preserve">
     <value>N/A</value>
   </data>
+  <data name="Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
   <data name="OverwriteConfirmation" xml:space="preserve">
     <value>The file already exists. Are you sure you want to overwrite it with a new tileset file?</value>
   </data>
