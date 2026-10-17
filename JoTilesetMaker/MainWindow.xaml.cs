@@ -55,6 +55,7 @@ namespace JoTilesetMaker
                 }
 
                 UpdateBuildTilesetButtonEnabledState();
+                UpdateRemoveTileButtonEnabledState();
             }
         }
 
@@ -98,6 +99,11 @@ namespace JoTilesetMaker
                 isEnabled = false;
 
             BuildTilesetButton.IsEnabled = isEnabled;
+        }
+
+        private void UpdateRemoveTileButtonEnabledState()
+        {
+            RemoveTileButton.IsEnabled = TilesListBox.SelectedItems.Count > 0;
         }
 
         private void UpdateTilesetCodeText(SixLabors.ImageSharp.Size tileSize)
@@ -204,6 +210,7 @@ namespace JoTilesetMaker
             }
 
             UpdateBuildTilesetButtonEnabledState();
+            UpdateRemoveTileButtonEnabledState();
         }
 
         private void SetTilesetFilePathButton_Click(object sender, RoutedEventArgs e)
@@ -346,6 +353,7 @@ namespace JoTilesetMaker
             BitDepthComboBox.SelectedItem = BitDepthComboBox.Items.OfType<ComboBoxItem>().FirstOrDefault(item => item.Tag.ToString() == DefaultBitDepth); // Default to 32 bits per pixel
 
             UpdateBuildTilesetButtonEnabledState();
+            UpdateRemoveTileButtonEnabledState();
         }
 
         private void MoveUpButton_Click(object sender, RoutedEventArgs e)
@@ -375,6 +383,11 @@ namespace JoTilesetMaker
         private void BackgroundColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<System.Windows.Media.Color?> e)
         {
             UpdateTilesetInitializationText();
+        }
+
+        private void TilesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateRemoveTileButtonEnabledState();
         }
     }
 }
