@@ -111,7 +111,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="200"/>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Content="{x:Static local:Strings.BuildTileset}" Margin="10" Click="BuildTilesetButton_Click"/>
+                        <Button Grid.Column="0" x:Name="BuildTilesetButton" Content="{x:Static local:Strings.BuildTileset}" Margin="10" Click="BuildTilesetButton_Click" IsEnabled="False"/>
                         <Button Grid.Column="2" Content="{x:Static local:Strings.ResetTileset}" Margin="10" Click="ResetTilesetButton_Click"/>
                     </Grid>
                 </Grid>

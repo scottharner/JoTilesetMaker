@@ -53,6 +53,8 @@ namespace JoTilesetMaker
                     UpdateTilesetCodeText(tileSize);
                     CheckTileSizeMismatch(tileSize.Width, tileSize.Height);
                 }
+
+                UpdateBuildTilesetButtonEnabledState();
             }
         }
 
@@ -72,13 +74,30 @@ namespace JoTilesetMaker
             if (mismatchFound)
             {
                 if (!ErrorsListBox.Items.Contains(Strings.TileSizeMismatch))
+                {
                     ErrorsListBox.Items.Add(Strings.TileSizeMismatch);
+                    UpdateBuildTilesetButtonEnabledState();
+                }
             }
             else
             {
                 if (ErrorsListBox.Items.Contains(Strings.TileSizeMismatch))
+                {
                     ErrorsListBox.Items.Remove(Strings.TileSizeMismatch);
+                    UpdateBuildTilesetButtonEnabledState();
+                }
             }   
+        }
+
+        private void UpdateBuildTilesetButtonEnabledState()
+        {
+            var isEnabled = true;
+            if (ErrorsListBox.Items.Count > 0 || 
+                TilesListBox.Items.Count == 0 || 
+                TilesetFilePathTextBlock.Text == Strings.NotApplicable)
+                isEnabled = false;
+
+            BuildTilesetButton.IsEnabled = isEnabled;
         }
 
         private void UpdateTilesetCodeText(SixLabors.ImageSharp.Size tileSize)
@@ -165,7 +184,10 @@ namespace JoTilesetMaker
                 TileHeightLabel.Content = Strings.NotApplicable;
                 UpdateTilesetCodeText(new SixLabors.ImageSharp.Size(0, 0));
                 if (ErrorsListBox.Items.Contains(Strings.TileSizeMismatch))
+                {
                     ErrorsListBox.Items.Remove(Strings.TileSizeMismatch);
+                    UpdateBuildTilesetButtonEnabledState();
+                }
             }
             else
             {
@@ -180,6 +202,8 @@ namespace JoTilesetMaker
 
                 UpdateTilesetCodeText(GetTileDimensions(TilesListBox.Items[0].ToString() ?? string.Empty));
             }
+
+            UpdateBuildTilesetButtonEnabledState();
         }
 
         private void SetTilesetFilePathButton_Click(object sender, RoutedEventArgs e)
@@ -199,15 +223,22 @@ namespace JoTilesetMaker
                 if (extensionlessFileName.Length > MaxFileNameLength)
                 {
                     if (!ErrorsListBox.Items.Contains(fileNameLengthError))
+                    {
                         ErrorsListBox.Items.Add(fileNameLengthError);
+                        UpdateBuildTilesetButtonEnabledState();
+                    }
                 }
                 else
                 {
                     if (ErrorsListBox.Items.Contains(fileNameLengthError))
+                    {
                         ErrorsListBox.Items.Remove(fileNameLengthError);
+                        UpdateBuildTilesetButtonEnabledState();
+                    }
                 }
 
                 UpdateTilesetInitializationText();
+                UpdateBuildTilesetButtonEnabledState();
             }
 
         }
@@ -313,6 +344,8 @@ namespace JoTilesetMaker
 
             BackgroundColorPicker.SelectedColor = System.Windows.Media.Colors.Transparent;
             BitDepthComboBox.SelectedItem = BitDepthComboBox.Items.OfType<ComboBoxItem>().FirstOrDefault(item => item.Tag.ToString() == DefaultBitDepth); // Default to 32 bits per pixel
+
+            UpdateBuildTilesetButtonEnabledState();
         }
 
         private void MoveUpButton_Click(object sender, RoutedEventArgs e)
