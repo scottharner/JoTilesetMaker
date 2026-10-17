@@ -9,7 +9,7 @@
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         Style="{StaticResource MaterialDesignWindow}"
         Title="MainWindow" Height="800" Width="800">
-    <md:DialogHost Identifier="InfoDialog">
+    <md:DialogHost Identifier="UtilityDialog">
         <Grid>
             <TabControl>
                 <TabItem Header="{x:Static local:Strings.Build}">

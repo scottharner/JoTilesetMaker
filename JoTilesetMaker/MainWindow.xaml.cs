@@ -283,28 +283,23 @@ namespace JoTilesetMaker
         {
             Clipboard.SetText(TilesetInitializationTextBox.Text);
 
-            await InfoDialog.ShowAsync(Strings.TilesetInitializationCopied, Strings.Success);
+            await UtilityDialog.ShowAsync(Strings.TilesetInitializationCopied, Strings.Success);
         }
 
         private async void CopyDefinitionButton_Click(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(TilesetDefinitionTextBox.Text);
 
-            await InfoDialog.ShowAsync(Strings.TilesetDefinitionCopied, Strings.Success);
+            await UtilityDialog.ShowAsync(Strings.TilesetDefinitionCopied, Strings.Success);
         }
 
         private async void BuildTilesetButton_Click(object sender, RoutedEventArgs e)
         {
             if (File.Exists(TilesetFilePathTextBlock.Text))
             {
-                var result = MessageBox.Show(
-                    Strings.OverwriteConfirmation,
-                    Strings.OverwriteTilesetFile,
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question
-                );
+                var result = await UtilityDialog.ConfirmAsync(Strings.OverwriteConfirmation, Strings.OverwriteTilesetFile);
 
-                if (result == MessageBoxResult.No)
+                if (!result)
                 {
                     return; // User chose not to overwrite the file, so we exit the method early
                 }
@@ -342,19 +337,15 @@ namespace JoTilesetMaker
             });
 
 
-            await InfoDialog.ShowAsync(Strings.TilesetSuccess, Strings.Success);
+            await UtilityDialog.ShowAsync(Strings.TilesetSuccess, Strings.Success);
         }
 
-        private void ResetTilesetButton_Click(object sender, RoutedEventArgs e)
+        private async void ResetTilesetButton_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show(
-                Strings.AreYouSure,
-                Strings.ResetTileData,
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Question
-            );
 
-            if (result == MessageBoxResult.Yes)
+            var result = await UtilityDialog.ConfirmAsync(Strings.AreYouSure, Strings.ResetTileData);
+
+            if (result)
             {
                 ResetTileData();
             }   
