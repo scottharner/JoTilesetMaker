@@ -19,8 +19,6 @@ The tileset name must be 8 characters or fewer, excluding extension.
 
 ## TODO
 - Implement button enabling
-	- move up
-	- move down
 	- copy definition
 	- copy initialization
 - Test if all bit depths work

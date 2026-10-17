@@ -56,6 +56,8 @@ namespace JoTilesetMaker
 
                 UpdateBuildTilesetButtonEnabledState();
                 UpdateRemoveTileButtonEnabledState();
+                UpdateMoveDownButtonEnabledState();
+                UpdateMoveUpButtonEnabledState();  
             }
         }
 
@@ -104,6 +106,16 @@ namespace JoTilesetMaker
         private void UpdateRemoveTileButtonEnabledState()
         {
             RemoveTileButton.IsEnabled = TilesListBox.SelectedItems.Count > 0;
+        }
+
+        private void UpdateMoveUpButtonEnabledState()
+        {
+            MoveUpButton.IsEnabled = TilesListBox.SelectedItems.Count == 1 && TilesListBox.SelectedIndex > 0;
+        }
+
+        private void UpdateMoveDownButtonEnabledState()
+        {
+            MoveDownButton.IsEnabled = TilesListBox.SelectedItems.Count == 1 && TilesListBox.SelectedIndex < (TilesListBox.Items.Count - 1);
         }
 
         private void UpdateTilesetCodeText(SixLabors.ImageSharp.Size tileSize)
@@ -211,6 +223,8 @@ namespace JoTilesetMaker
 
             UpdateBuildTilesetButtonEnabledState();
             UpdateRemoveTileButtonEnabledState();
+            UpdateMoveUpButtonEnabledState();
+            UpdateMoveDownButtonEnabledState();
         }
 
         private void SetTilesetFilePathButton_Click(object sender, RoutedEventArgs e)
@@ -354,6 +368,8 @@ namespace JoTilesetMaker
 
             UpdateBuildTilesetButtonEnabledState();
             UpdateRemoveTileButtonEnabledState();
+            UpdateMoveUpButtonEnabledState();
+            UpdateMoveDownButtonEnabledState();
         }
 
         private void MoveUpButton_Click(object sender, RoutedEventArgs e)
@@ -388,6 +404,8 @@ namespace JoTilesetMaker
         private void TilesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateRemoveTileButtonEnabledState();
+            UpdateMoveUpButtonEnabledState();
+            UpdateMoveDownButtonEnabledState();
         }
     }
 }

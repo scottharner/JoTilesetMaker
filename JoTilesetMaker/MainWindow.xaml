@@ -60,8 +60,8 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="200"/>
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Content="{x:Static local:Strings.MoveUp}" Margin="10" Click="MoveUpButton_Click"/>
-                            <Button Grid.Column="2" Content="{x:Static local:Strings.MoveDown}" Margin="10" Click="MoveDownButton_Click"/>
+                            <Button Grid.Column="0" x:Name="MoveUpButton" Content="{x:Static local:Strings.MoveUp}" Margin="10" Click="MoveUpButton_Click" IsEnabled="False"/>
+                            <Button Grid.Column="2" x:Name="MoveDownButton" Content="{x:Static local:Strings.MoveDown}" Margin="10" Click="MoveDownButton_Click" IsEnabled="False"/>
                         </Grid>
                     </Grid>
                     <Grid Grid.Row="1" Margin="10">
