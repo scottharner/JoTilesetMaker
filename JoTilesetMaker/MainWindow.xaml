@@ -146,7 +146,7 @@
                             Text="{x:Static local:Strings.NotApplicable}"
                             Padding="5"
                             Margin="0,10,0,0"/>
-                        <Button Grid.Row="1" Grid.Column="2" Content="{x:Static local:Strings.CopyDefinition}" Margin="10" Click="CopyDefinitionButton_Click"/>
+                        <Button Grid.Row="1" Grid.Column="2" x:Name="CopyDefinitionButton" Content="{x:Static local:Strings.CopyDefinition}" Margin="10" Click="CopyDefinitionButton_Click" IsEnabled="False"/>
                     </Grid>
                     <Grid Grid.Row="1" Margin="10">
                         <Grid.ColumnDefinitions>
@@ -171,7 +171,7 @@
                             Text="{x:Static local:Strings.NotApplicable}"
                             Padding="5"
                             Margin="0,10,0,0"/>
-                        <Button Grid.Row="1" Grid.Column="2" Content="{x:Static local:Strings.CopyInitialization}" Margin="10" Click="CopyInitializationButton_Click"/>
+                        <Button Grid.Row="1" Grid.Column="2" x:Name="CopyInitializationButton" Content="{x:Static local:Strings.CopyInitialization}" Margin="10" Click="CopyInitializationButton_Click" IsEnabled="False"/>
                     </Grid>
                 </Grid>
             </TabItem>

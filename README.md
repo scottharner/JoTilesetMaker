@@ -18,8 +18,5 @@ The tileset name must be 8 characters or fewer, excluding extension.
 8. Paste the generated code into your code editor
 
 ## TODO
-- Implement button enabling
-	- copy definition
-	- copy initialization
 - Test if all bit depths work
 - Install/prerequisite story

@@ -103,6 +103,16 @@ namespace JoTilesetMaker
             BuildTilesetButton.IsEnabled = isEnabled;
         }
 
+        private void UpdateCopyDefinitionButtonEnabledState()
+        {
+            CopyDefinitionButton.IsEnabled = (TilesetDefinitionTextBox.Text != Strings.NotApplicable);
+        }
+
+        private void UpdateCopyInitializationButtonEnabledState()
+        {
+            CopyInitializationButton.IsEnabled = (TilesetInitializationTextBox.Text != Strings.NotApplicable);
+        }
+
         private void UpdateRemoveTileButtonEnabledState()
         {
             RemoveTileButton.IsEnabled = TilesListBox.SelectedItems.Count > 0;
@@ -124,6 +134,8 @@ namespace JoTilesetMaker
             {
                 TilesetDefinitionTextBox.Text = Strings.NotApplicable;
                 TilesetInitializationTextBox.Text = Strings.NotApplicable;
+                UpdateCopyDefinitionButtonEnabledState();
+                UpdateCopyInitializationButtonEnabledState();
                 return;
             }
 
@@ -152,6 +164,7 @@ namespace JoTilesetMaker
                 }
 
                 TilesetInitializationTextBox.Text = initializationString;
+                UpdateCopyInitializationButtonEnabledState();
             }
         }
 
@@ -178,6 +191,7 @@ namespace JoTilesetMaker
             definitionString += "#define GAME_TILE_COUNT JO_TILE_COUNT(game_tileset)\n";
 
             TilesetDefinitionTextBox.Text = tileVarDefinitionsString + "\n" + definitionString;
+            UpdateCopyDefinitionButtonEnabledState();
         }
 
         private SixLabors.ImageSharp.Size GetTileDimensions(string filePath)
@@ -370,6 +384,8 @@ namespace JoTilesetMaker
             UpdateRemoveTileButtonEnabledState();
             UpdateMoveUpButtonEnabledState();
             UpdateMoveDownButtonEnabledState();
+            UpdateCopyDefinitionButtonEnabledState();
+            UpdateCopyInitializationButtonEnabledState();
         }
 
         private void MoveUpButton_Click(object sender, RoutedEventArgs e)
