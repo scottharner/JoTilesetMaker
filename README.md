@@ -18,5 +18,5 @@ The tileset name must be 8 characters or fewer, excluding extension.
 8. Paste the generated code into your code editor
 
 ## TODO
-- Test if all bit depths work
+- Test different background color
 - Install/prerequisite story

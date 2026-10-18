@@ -79,8 +79,6 @@
                         <StackPanel Grid.Row="2" Margin="10" Orientation="Horizontal">
                             <Label Content="{x:Static local:Strings.BitDepth}" FontSize="18"/>
                             <ComboBox Grid.Column="1" x:Name="BitDepthComboBox" Margin="10">
-                                <ComboBoxItem Content="{x:Static local:Strings._8Bit}" Tag="8"/>
-                                <ComboBoxItem Content="{x:Static local:Strings._16Bit}" Tag="16"/>
                                 <ComboBoxItem Content="{x:Static local:Strings._24Bit}" Tag="24"/>
                                 <ComboBoxItem Content="{x:Static local:Strings._32Bit}" Tag="32" IsSelected="True"/>
                             </ComboBox>

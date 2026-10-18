@@ -61,15 +61,6 @@ namespace JoTilesetMaker {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 16-bit.
-        /// </summary>
-        public static string _16Bit {
-            get {
-                return ResourceManager.GetString("16Bit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to 24-bit.
         /// </summary>
         public static string _24Bit {
@@ -84,15 +75,6 @@ namespace JoTilesetMaker {
         public static string _32Bit {
             get {
                 return ResourceManager.GetString("32Bit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 8-bit.
-        /// </summary>
-        public static string _8Bit {
-            get {
-                return ResourceManager.GetString("8Bit", resourceCulture);
             }
         }
         

@@ -323,8 +323,6 @@ namespace JoTilesetMaker
             var bitsPerPixelTag = Convert.ToByte(((ComboBoxItem)BitDepthComboBox.SelectedItem).Tag);
             TgaBitsPerPixel bitsPerPixel = bitsPerPixelTag switch
             {
-                8 => TgaBitsPerPixel.Bit8,
-                16 => TgaBitsPerPixel.Bit16,
                 24 => TgaBitsPerPixel.Bit24,
                 32 => TgaBitsPerPixel.Bit32,
                 _ => throw new InvalidOperationException(Strings.InvalidBits)
