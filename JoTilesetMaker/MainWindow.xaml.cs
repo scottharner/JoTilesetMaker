@@ -252,8 +252,8 @@ namespace JoTilesetMaker
 
             if (saveFileDialog.ShowDialog() == true)
             {
-                TilesetFilePathTextBlock.Text = saveFileDialog.FileName;
                 FileInfo saveFileInfo = new FileInfo(saveFileDialog.FileName);
+                TilesetFilePathTextBlock.Text = Path.Combine(saveFileInfo.DirectoryName ?? string.Empty, saveFileInfo.Name.ToUpper());
                 var extensionlessFileName = saveFileInfo.Name.Replace(saveFileInfo.Extension, "");
                 var fileNameLengthError = String.Format(Strings.FilenameMaxCharacters, MaxFileNameLength);
                 if (extensionlessFileName.Length > MaxFileNameLength)
