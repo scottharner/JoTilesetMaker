@@ -17,5 +17,9 @@ The tileset name must be 8 characters or fewer, excluding extension.
 7. Copy generated code from the code tab
 8. Paste the generated code into your code editor
 
-## TODO
-- Install/prerequisite story
+## Dev Notes
+
+This is a WPF .NET 8 application. It is deployed as a self contained application 
+with prerequisites included.
+
+dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
